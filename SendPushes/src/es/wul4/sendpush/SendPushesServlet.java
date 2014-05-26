@@ -31,7 +31,7 @@ public class SendPushesServlet extends HttpServlet {
 
         String reg_id = req.getParameter("token");
         String mensaje = req.getParameter("mensaje");
-        String senderId = req.getParameter("key");
+        String senderId = req.getParameter("senderid");
 
         if (reg_id != null) {
 
