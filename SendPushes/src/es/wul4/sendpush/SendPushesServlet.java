@@ -30,14 +30,15 @@ public class SendPushesServlet extends HttpServlet {
         log.warning("Mensaje recibido a las " + dateFormat.format(date));
 
         String reg_id = req.getParameter("token");
-        String mensaje = req.getParameter("mensaje");
         String senderId = req.getParameter("senderid");
+        String parametro = req.getParameter("parametro");
+        String mensaje = req.getParameter("mensaje");
 
         if (reg_id != null) {
 
             Sender sender = new Sender(senderId);
 
-            Message message = new Message.Builder().collapseKey("1").delayWhileIdle(true).timeToLive(20).addData("mensaje", mensaje).build();
+            Message message = new Message.Builder().collapseKey("1").delayWhileIdle(true).timeToLive(20).addData(parametro, mensaje).build();
             try {
                 Result result = sender.send(message, reg_id, 5);
                 date = new Date();

@@ -1,6 +1,8 @@
 <form action="sendPush" method="post">
-	SenderId:<input type="text" name="senderid" size="50" /><br /> <br /> Token:<input
-		type="text" name="token" size="250" /><br /> <br /> Message:<input type="text"
-		name="mensaje" size="500" /><br /> <br />
-	<input type="submit" value="Send Push" />
+	SenderId:<input type="text" name="senderid" maxlength="50" size="50" /><br />
+	<br /> Token:<input type="text" name="token" maxlength="250"
+		size="250" /><br /> Parameter name:<input type="text" name="parametro"
+		maxlength="50" size="50" /> Message:<input type="text"
+		name="mensaje" maxlength="500" size="500" /> <br /> <br /> <input
+		type="submit" value="Send Push" />
 </form>
