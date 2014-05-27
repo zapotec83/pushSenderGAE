@@ -45,15 +45,15 @@ public class SendPushesServlet extends HttpServlet {
                 log.warning("Resultado: " + result.toString());
 
             } catch (IllegalArgumentException e) {
-                log.warning("IllegalArgumentException: " + e.getLocalizedMessage());
+                log.severe("IllegalArgumentException: " + e.getLocalizedMessage());
             } catch (InvalidRequestException e) {
-                log.warning("InvalidRequestException: " + e.getLocalizedMessage());
+                log.severe("InvalidRequestException: " + e.getLocalizedMessage());
             } catch (IOException e) {
-                log.warning("IOException: " + e.getLocalizedMessage());
+                log.severe("IOException: " + e.getLocalizedMessage());
             }
 
         } else {
-            log.warning("Error!! RegId no recibido!");
+            log.severe("Error!! RegId no recibido!");
         }
 
         log.warning("Mensaje-> " + mensaje + " || Token-> " + reg_id);
