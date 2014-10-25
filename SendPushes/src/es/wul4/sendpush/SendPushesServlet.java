@@ -24,18 +24,20 @@ public class SendPushesServlet extends HttpServlet {
     public void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/plain");
 
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         Date date = new Date();
 
         log.warning("Mensaje recibido a las " + dateFormat.format(date));
 
         String reg_id = req.getParameter("token");
-        String senderId = req.getParameter("senderid");
+        String api_key = req.getParameter("api_key");
         String mensaje = req.getParameter("mensaje");
+        
+        log.warning("RegId->" + reg_id + "*** API_KEY->" + api_key + "*** MENSAJE->" + mensaje);
 
         if (reg_id != null) {
 
-            Sender sender = new Sender(senderId);
+            Sender sender = new Sender(api_key);
 
             Message message = new Message.Builder().collapseKey("1").delayWhileIdle(true).timeToLive(20).addData("message", mensaje).build();
             try {
@@ -43,6 +45,11 @@ public class SendPushesServlet extends HttpServlet {
                 date = new Date();
                 log.warning("Mensaje enviado a las " + dateFormat.format(date));
                 log.warning("Resultado: " + result.toString());
+                if(result.getMessageId() != null) {
+                	log.warning("SENT sucessfully!! " + result.getMessageId());
+                } else {
+                    log.severe("ERROR->" + result.getErrorCodeName());
+                }
 
             } catch (IllegalArgumentException e) {
                 log.severe("IllegalArgumentException: " + e.getLocalizedMessage());
@@ -55,8 +62,5 @@ public class SendPushesServlet extends HttpServlet {
         } else {
             log.severe("Error!! RegId no recibido!");
         }
-
-        log.warning("Mensaje-> " + mensaje + " || Token-> " + reg_id);
-
     }
 }
